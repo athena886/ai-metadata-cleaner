@@ -10,6 +10,7 @@
   <meta name="theme-color" content="#f4f7f2">
   <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self' blob: data:; style-src 'unsafe-inline'; script-src 'unsafe-inline'; connect-src 'none'; font-src 'self'; media-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
   <link rel="canonical" href="https://ai-metadata-cleaner.com/">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%23102019'/%3E%3Cpath d='M32 12 17 18v11c0 10 6.2 17.8 15 22 8.8-4.2 15-12 15-22V18l-15-6Z' fill='none' stroke='%23cbf46d' stroke-width='4' stroke-linejoin='round'/%3E%3Cpath d='m25.5 32 4.2 4.2 9.2-9.4' fill='none' stroke='%23cbf46d' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 
   <!-- Social metadata -->
   <meta property="og:type" content="website">
@@ -506,6 +507,95 @@
     .feature-card.featured .feature-number { color: rgba(255, 255, 255, 0.14); }
 
     /* ---------- Removed metadata ---------- */
+    .how-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.12fr) minmax(310px, 0.88fr);
+      gap: 24px;
+      align-items: start;
+      margin-top: 32px;
+    }
+    .how-main, .how-aside, .guide-card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      background: rgba(255, 255, 255, 0.82);
+      box-shadow: var(--shadow-sm);
+    }
+    .how-main { padding: 10px 26px 10px; }
+    .step-list { margin: 0; padding: 0; list-style: none; }
+    .step-list li {
+      display: grid;
+      grid-template-columns: 46px minmax(0, 1fr);
+      gap: 14px;
+      padding: 22px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .step-list li:last-child { border-bottom: 0; }
+    .step-number {
+      display: grid;
+      width: 42px;
+      height: 42px;
+      place-items: center;
+      border-radius: 14px;
+      color: var(--green-dark);
+      background: var(--green-soft);
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 900;
+    }
+    .step-list h3 { margin: 1px 0 5px; font-size: 1rem; letter-spacing: -0.02em; }
+    .step-list p { margin: 0; color: var(--muted); font-size: 0.82rem; }
+    .how-aside {
+      position: sticky;
+      top: 96px;
+      padding: 26px;
+      color: white;
+      border-color: transparent;
+      background: linear-gradient(145deg, #173127, #10261d);
+    }
+    .how-aside .kicker { color: var(--lime); }
+    .how-aside h3 { margin: 0; font-size: 1.28rem; letter-spacing: -0.035em; }
+    .how-aside p { margin: 12px 0 0; color: rgba(255, 255, 255, 0.68); font-size: 0.82rem; }
+    .how-aside a { color: var(--lime); font-weight: 800; text-underline-offset: 3px; }
+    .privacy-facts { display: grid; gap: 9px; margin-top: 19px; }
+    .privacy-facts span {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 10px 11px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      color: rgba(255, 255, 255, 0.78);
+      background: rgba(255, 255, 255, 0.05);
+      font-size: 0.73rem;
+      font-weight: 700;
+    }
+    .privacy-facts span::before { content: "✓"; color: var(--lime); font-weight: 950; }
+    .guide-intro { max-width: 800px; }
+    .guide-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 30px;
+    }
+    .guide-card { padding: 25px; }
+    .guide-card h3 { margin: 0 0 9px; font-size: 1.02rem; letter-spacing: -0.02em; }
+    .guide-card p { margin: 0; color: var(--muted); font-size: 0.83rem; }
+    .guide-card p + p { margin-top: 10px; }
+    .guide-card a, .section-copy a { color: var(--green-dark); font-weight: 800; text-underline-offset: 3px; }
+    .guide-note {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: 14px;
+      align-items: start;
+      margin-top: 18px;
+      padding: 18px 20px;
+      border: 1px solid #d9e8bc;
+      border-radius: 17px;
+      background: var(--lime-soft);
+    }
+    .guide-note strong { display: block; font-size: 0.88rem; }
+    .guide-note p { margin: 3px 0 0; color: #536246; font-size: 0.78rem; }
+    .guide-note-icon { font-size: 1.25rem; }
     .removed-panel {
       display: grid;
       grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.22fr);
@@ -586,7 +676,8 @@
 
     /* ---------- Responsive ---------- */
     @media (max-width: 980px) {
-      .hero-grid, .removed-panel, .faq-wrap, .footer-grid { grid-template-columns: 1fr; }
+      .hero-grid, .removed-panel, .faq-wrap, .footer-grid, .how-layout, .guide-grid { grid-template-columns: 1fr; }
+      .how-aside { position: static; }
       .hero { padding-top: 50px; }
       .hero-grid { gap: 36px; }
       .cleaner-card { max-width: 680px; }
@@ -602,6 +693,8 @@
       .trust-item:nth-child(2) { border-right: 0; }
       .trust-item:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
       .feature-grid { grid-template-columns: 1fr; }
+      .how-main { padding: 6px 20px; }
+      .guide-card { padding: 21px; }
       .feature-card { min-height: 0; }
       .results-intro { align-items: flex-start; flex-direction: column; }
       .results-intro .button { width: 100%; }
@@ -619,6 +712,8 @@
       .local-mode { margin-top: 12px; }
       .drop-zone { min-height: 238px; padding: 26px 15px; }
       .compare-grid { grid-template-columns: 1fr; }
+      .step-list li { grid-template-columns: 40px minmax(0, 1fr); gap: 11px; }
+      .step-number { width: 38px; height: 38px; }
       .compare-arrow { margin: -2px auto; transform: rotate(90deg); }
       .result-summary { grid-template-columns: 1fr; }
       .size-metric { text-align: left; }
@@ -766,7 +861,7 @@
         <div class="cleaner-card" id="cleaner">
           <div class="cleaner-head">
             <div>
-              <h2>Clean images locally</h2>
+              <h2>Clean AI metadata in your browser</h2>
               <p>Up to 5 images per batch. Nothing leaves this browser.</p>
             </div>
             <span class="local-mode">Local mode</span>
@@ -817,7 +912,7 @@
       <div class="results-intro" id="resultsIntro">
         <div>
           <span class="kicker">Cleaned locally</span>
-          <h2 id="resultsTitle">Your before &amp; after previews</h2>
+          <h2 id="resultsTitle">Review removed AI metadata before you download</h2>
           <p>Inspect the metadata count and file-size change, then download each cleaned image or the full batch.</p>
         </div>
         <button class="button button-lime" id="downloadAll" type="button">Download all cleaned images</button>
@@ -828,12 +923,12 @@
     <!-- Product benefits -->
     <section class="section container" aria-labelledby="benefitsTitle">
       <span class="kicker">Built for private sharing</span>
-      <h2 class="section-title" id="benefitsTitle">Your photos. Your device. Your call.</h2>
+      <h2 class="section-title" id="benefitsTitle">Why use a browser-based AI metadata cleaner?</h2>
       <div class="feature-grid">
         <article class="feature-card featured">
           <span class="feature-number">01</span>
           <div class="feature-icon" aria-hidden="true">🔒</div>
-          <h3>100% Private – files never leave your device</h3>
+          <h3>Private AI metadata cleaner with zero uploads</h3>
           <p>No upload endpoint, no storage, no image transfer. Every operation runs inside the browser tab.</p>
         </article>
         <article class="feature-card">
@@ -851,12 +946,58 @@
       </div>
     </section>
 
+    <!-- How it works: long-form search intent and contextual internal links -->
+    <section class="section container" id="how-it-works" aria-labelledby="howTitle">
+      <span class="kicker">How it works</span>
+      <h2 class="section-title" id="howTitle">How to remove AI metadata from photos in three steps</h2>
+      <p class="section-copy">Use this free AI metadata cleaner when you want to remove AI labels or hidden capture details before posting a photo online. Nothing is sent to a server, so the full process takes place inside the browser tab already open on your device.</p>
+      <div class="how-layout">
+        <div class="how-main">
+          <ol class="step-list">
+            <li>
+              <span class="step-number">01</span>
+              <div>
+                <h3>Choose or drop up to five photos</h3>
+                <p>Select JPEG, PNG, WebP, GIF, AVIF, BMP or TIFF files from your device. The browser reads the selected files locally; there is no upload queue, cloud worker or temporary remote copy.</p>
+              </div>
+            </li>
+            <li>
+              <span class="step-number">02</span>
+              <div>
+                <h3>Strip embedded metadata in place</h3>
+                <p>The cleaner checks the image container for C2PA content credentials, XMP AI-source fields, IPTC digital source type, EXIF, GPS, camera details, author and software tags. JPEG, PNG, WebP and GIF files are cleaned at the metadata-block level so the compressed image payload stays intact.</p>
+              </div>
+            </li>
+            <li>
+              <span class="step-number">03</span>
+              <div>
+                <h3>Review the result and download the cleaned file</h3>
+                <p>Compare the before and after previews, review the number of metadata items removed and check the file-size change. Download one image or use Download all to save the full batch with names such as <code>original_cleaned.jpg</code>.</p>
+              </div>
+            </li>
+          </ol>
+        </div>
+        <aside class="how-aside">
+          <span class="kicker">Private by architecture</span>
+          <h3>What happens inside your browser</h3>
+          <p>The page uses local file input, the Canvas API and JavaScript binary parsers. A restrictive Content Security Policy blocks network connections, which means the tool is not designed to transmit your files even if a future script changed.</p>
+          <div class="privacy-facts">
+            <span>No image uploads</span>
+            <span>No analytics or third-party scripts</span>
+            <span>No account, email or payment</span>
+            <span>Download only the cleaned copy</span>
+          </div>
+          <p>You can read the exact boundaries in the <a href="#faq">privacy and platform FAQ</a> or see the full <a href="#what-removed">metadata removal list</a>.</p>
+        </aside>
+      </div>
+    </section>
+
     <!-- Removed metadata -->
     <section class="section container" id="what-removed" aria-labelledby="removedTitle">
       <div class="removed-panel">
         <div>
           <span class="kicker">Metadata cleanup</span>
-          <h2 class="section-title" id="removedTitle">What gets removed</h2>
+          <h2 class="section-title" id="removedTitle">What metadata does an AI metadata cleaner remove?</h2>
           <p class="section-copy">The cleaner targets embedded labels and identifying fields while preserving the image data whenever direct stripping is available.</p>
         </div>
         <ul class="removed-list">
@@ -869,12 +1010,46 @@
       </div>
     </section>
 
+    <!-- Metadata explainer: additional topical depth for search users -->
+    <section class="section container" id="metadata-guide" aria-labelledby="metadataGuideTitle">
+      <div class="guide-intro">
+        <span class="kicker">Metadata explained</span>
+        <h2 class="section-title" id="metadataGuideTitle">AI metadata in photos: what it is and where it hides</h2>
+        <p class="section-copy">AI information is not always visible in the picture itself. It can be stored in structured fields attached to the file, which is why an image can look ordinary while still carrying a generated-content declaration or identifying capture data.</p>
+      </div>
+      <div class="guide-grid">
+        <article class="guide-card">
+          <h3>AI labels and content credentials</h3>
+          <p>C2PA content credentials are cryptographically signed manifests that can describe how an image was created or edited. IPTC digital source type can mark media as trained algorithmic media, composite or synthetic. XMP fields may hold similar AI-source information. This tool removes those embedded declarations from the downloaded file so future shares do not carry them.</p>
+        </article>
+        <article class="guide-card">
+          <h3>EXIF, GPS and camera fingerprints</h3>
+          <p>EXIF can include camera make, model, lens, exposure settings, timestamps, author names, software names and GPS coordinates. Even when a social service removes some fields, the original file on your device may still contain them. Removing EXIF helps reduce unnecessary device and location clues before a photo is posted, emailed or sold.</p>
+        </article>
+        <article class="guide-card">
+          <h3>Why browser-local cleaning is more private</h3>
+          <p>Upload-based cleaners require your photo to travel to a server, be processed and then be deleted. This AI metadata cleaner takes a different approach: file reading, parsing, preview generation and download preparation all occur in the current tab. The privacy promise is therefore part of the technical design, not only the wording on the page.</p>
+        </article>
+        <article class="guide-card">
+          <h3>Which image formats are supported?</h3>
+          <p>JPEG and JPG, PNG, WebP and GIF receive direct metadata stripping. AVIF, BMP and TIFF are accepted when your browser can decode them; those less common formats use a local Canvas fallback that creates a new image without the original metadata container. The downloadable extension follows the output format so an image is not mislabeled.</p>
+        </article>
+      </div>
+      <div class="guide-note">
+        <div class="guide-note-icon" aria-hidden="true">💡</div>
+        <div>
+          <strong>Practical workflow</strong>
+          <p>Clean the original file before uploading it to Instagram, a marketplace, a newsletter or a publishing platform. A platform can only see metadata that is present when the upload happens; it cannot act on fields that were already removed locally. If a label was already attached inside that platform, that record belongs to the platform and this tool cannot edit it.</p>
+        </div>
+      </div>
+    </section>
+
     <!-- FAQ -->
     <section class="section container" id="faq" aria-labelledby="faqTitle">
       <div class="faq-wrap">
         <div>
           <span class="kicker">Straight answers</span>
-          <h2 class="section-title" id="faqTitle">Frequently asked questions</h2>
+          <h2 class="section-title" id="faqTitle">AI metadata cleaner FAQ: limits, privacy and quality</h2>
           <p class="section-copy">Clear limits matter. Here is exactly what this local tool can and cannot change.</p>
         </div>
         <div class="faq-list">
@@ -1605,12 +1780,12 @@
           <div class="compare-grid">
             <figure class="compare-panel">
               <figcaption class="compare-label"><span>Before</span><span>${formatBytes(result.originalSize)}</span></figcaption>
-              <div class="image-frame"><img src="${beforeUrl}" alt="Original preview of ${escapeHtml(result.sourceName)}"></div>
+              <div class="image-frame"><img src="${beforeUrl}" width="1200" height="900" decoding="async" alt="Original preview of ${escapeHtml(result.sourceName)}"></div>
             </figure>
             <div class="compare-arrow" aria-hidden="true">→</div>
             <figure class="compare-panel">
               <figcaption class="compare-label"><span>After</span><span>${formatBytes(result.cleanedSize)}</span></figcaption>
-              <div class="image-frame"><img src="${afterUrl}" alt="Cleaned preview of ${escapeHtml(result.sourceName)}"></div>
+              <div class="image-frame"><img src="${afterUrl}" width="1200" height="900" decoding="async" alt="Cleaned preview of ${escapeHtml(result.sourceName)}"></div>
             </figure>
           </div>
           <div class="result-summary">
