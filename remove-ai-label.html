@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Page metadata -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Remove AI Label from Photo – Free AI Label Remover</title>
+  <meta name="description" content="Remove AI labels, C2PA content credentials &amp; digital source type from JPEG &amp; PNG photos in your browser. Free, private, no upload.">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#f4f7f2">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self' blob: data:; style-src 'unsafe-inline'; script-src 'unsafe-inline'; connect-src 'none'; font-src 'self'; media-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <link rel="canonical" href="https://ai-metadata-cleaner.com/remove-ai-label">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%23102019'/%3E%3Cpath d='M32 12 17 18v11c0 10 6.2 17.8 15 22 8.8-4.2 15-12 15-22V18l-15-6Z' fill='none' stroke='%23cbf46d' stroke-width='4' stroke-linejoin='round'/%3E%3Cpath d='m25.5 32 4.2 4.2 9.2-9.4' fill='none' stroke='%23cbf46d' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Remove AI Label from Photo – Free AI Label Remover">
+  <meta property="og:description" content="Strip C2PA, IPTC AI-source tags, EXIF and GPS from photos locally. No uploads, no signup.">
+  <meta property="og:url" content="https://ai-metadata-cleaner.com/remove-ai-label">
+  <meta property="og:image" content="https://ai-metadata-cleaner.com/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Remove AI Label from Photo – Free AI Label Remover">
+  <meta name="twitter:description" content="Remove embedded AI labels before sharing. Browser-local, free and private.">
+  <meta name="twitter:image" content="https://ai-metadata-cleaner.com/og-image.png">
+
+  <style>
+    /* ---------- Tokens and reset ---------- */
+    :root {
+      --ink: #122019;
+      --ink-soft: #2a3c32;
+      --muted: #68766d;
+      --paper: #f4f7f2;
+      --surface: #ffffff;
+      --tint: #edf5ee;
+      --line: #dce6dc;
+      --green: #198754;
+      --green-dark: #0d5d3a;
+      --green-soft: #dff5e8;
+      --lime: #cbf46d;
+      --lime-soft: #efffd0;
+      --danger: #b42318;
+      --danger-soft: #fff0ee;
+      --shadow: 0 18px 52px rgba(18, 32, 25, 0.11);
+      --radius: 24px;
+      --container: 1160px;
+      --sans: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-width: 320px;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 8% 4%, rgba(203, 244, 109, 0.28), transparent 25rem),
+        radial-gradient(circle at 90% 16%, rgba(80, 184, 128, 0.13), transparent 30rem),
+        var(--paper);
+      font-family: var(--sans);
+      line-height: 1.62;
+      -webkit-font-smoothing: antialiased;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      opacity: .3;
+      pointer-events: none;
+      background-image: linear-gradient(rgba(18,32,25,.035) 1px, transparent 1px), linear-gradient(90deg, rgba(18,32,25,.035) 1px, transparent 1px);
+      background-size: 42px 42px;
+      mask-image: linear-gradient(to bottom, black, transparent 72%);
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; }
+    button, input { font: inherit; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+    .container { width: min(calc(100% - 36px), var(--container)); margin-inline: auto; }
+    .site-header { position: sticky; top: 0; z-index: 30; padding: 13px 0; border-bottom: 1px solid rgba(220,230,220,.8); background: rgba(244,247,242,.86); backdrop-filter: blur(16px); }
+    .nav { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 850; letter-spacing: -.03em; text-decoration: none; white-space: nowrap; }
+    .brand-mark { display: grid; width: 38px; height: 38px; place-items: center; border: 1px solid rgba(25,135,84,.2); border-radius: 13px; background: linear-gradient(145deg, white, var(--green-soft)); }
+    .brand-mark svg { width: 21px; height: 21px; }
+    .nav-links { display: flex; gap: 24px; }
+    .nav-links a { color: var(--muted); font-size: .88rem; font-weight: 750; text-decoration: none; }
+    .nav-links a:hover { color: var(--ink); }
+    .local { display: inline-flex; align-items: center; gap: 7px; padding: 8px 11px; border: 1px solid var(--line); border-radius: 999px; background: rgba(255,255,255,.75); font-size: .74rem; font-weight: 850; white-space: nowrap; }
+    .local::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 0 4px rgba(25,135,84,.11); }
+
+    .breadcrumb { display: flex; align-items: center; gap: 8px; padding-top: 19px; color: var(--muted); font-size: .76rem; font-weight: 750; }
+    .breadcrumb a { color: var(--green-dark); text-decoration: none; }
+    .related { display: flex; align-items: center; justify-content: space-between; gap: 28px; padding: 29px 31px; border: 1px solid var(--line); border-radius: 22px; background: rgba(255,255,255,.86); box-shadow: 0 10px 30px rgba(18,32,25,.07); }
+    .related h2 { margin: 0; font-size: clamp(1.45rem,3vw,2.1rem); line-height: 1.08; letter-spacing: -.04em; }
+    .related p { max-width: 660px; margin: 8px 0 0; color: var(--muted); font-size: .84rem; }
+    .related .button { flex: 0 0 auto; }
+
+    /* ---------- Hero and cleaner ---------- */
+    .hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(380px, .84fr); gap: 52px; align-items: center; padding: 68px 0 38px; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 9px; margin-bottom: 19px; padding: 7px 11px; border: 1px solid rgba(25,135,84,.18); border-radius: 999px; color: var(--green-dark); background: rgba(255,255,255,.76); font-size: .76rem; font-weight: 850; }
+    .eyebrow::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--green); }
+    h1 { max-width: 760px; margin: 0; font-size: clamp(3.2rem, 6.8vw, 5.55rem); line-height: .95; letter-spacing: -.069em; }
+    .lede { max-width: 690px; margin: 25px 0 0; color: var(--ink-soft); font-size: clamp(1.05rem, 2vw, 1.22rem); }
+    .intro { max-width: 680px; margin: 14px 0 0; color: var(--muted); font-size: .94rem; }
+    .actions { display: flex; flex-wrap: wrap; gap: 11px; margin-top: 28px; }
+    .button { display: inline-flex; min-height: 49px; align-items: center; justify-content: center; gap: 8px; padding: 11px 18px; border: 1px solid transparent; border-radius: 14px; cursor: pointer; font-weight: 850; line-height: 1.2; text-decoration: none; transition: .16s ease; }
+    .button:hover { transform: translateY(-2px); }
+    .button-primary { color: white; background: var(--ink); box-shadow: 0 10px 26px rgba(18,32,25,.17); }
+    .button-secondary { color: var(--ink); border-color: #cbd9cd; background: rgba(255,255,255,.75); }
+    .button-lime { color: var(--ink); background: var(--lime); }
+    .button:disabled { cursor: not-allowed; opacity: .58; transform: none; }
+    .button:focus-visible, .drop-zone:focus-visible, summary:focus-visible, a:focus-visible { outline: 3px solid rgba(25,135,84,.3); outline-offset: 3px; }
+    .tool-card { position: relative; overflow: hidden; padding: 25px; border-radius: 32px; color: white; background: linear-gradient(145deg, #173127, #0f2219); box-shadow: 0 28px 80px rgba(12,45,29,.18); }
+    .tool-card::before { content: ""; position: absolute; top: -120px; right: -100px; width: 280px; height: 280px; border-radius: 50%; background: radial-gradient(circle, rgba(203,244,109,.24), transparent 68%); }
+    .tool-head { position: relative; display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; }
+    .tool-head h2 { margin: 0; font-size: 1.35rem; line-height: 1.2; letter-spacing: -.03em; }
+    .tool-head p { margin: 7px 0 0; color: rgba(255,255,255,.64); font-size: .8rem; }
+    .mode { padding: 7px 10px; border: 1px solid rgba(203,244,109,.23); border-radius: 999px; color: var(--lime); background: rgba(203,244,109,.08); font-size: .66rem; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; }
+    .drop-zone { position: relative; display: grid; min-height: 235px; margin-top: 21px; padding: 25px 18px; place-items: center; border: 1.5px dashed rgba(255,255,255,.28); border-radius: 23px; text-align: center; background: rgba(255,255,255,.055); cursor: pointer; transition: .18s ease; }
+    .drop-zone:hover, .drop-zone.dragging { border-color: rgba(203,244,109,.8); background: rgba(203,244,109,.09); transform: translateY(-2px); }
+    .drop-zone input { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+    .drop-icon { display: grid; width: 54px; height: 54px; margin: 0 auto 14px; place-items: center; border: 1px solid rgba(255,255,255,.16); border-radius: 17px; color: var(--lime); background: rgba(255,255,255,.08); }
+    .drop-icon svg { width: 25px; height: 25px; }
+    .drop-zone h3 { margin: 0; font-size: 1.04rem; }
+    .drop-zone p { margin: 7px auto 0; color: rgba(255,255,255,.63); font-size: .8rem; }
+    .choose { color: var(--lime); font-weight: 900; text-decoration: underline; text-underline-offset: 3px; }
+    .formats { margin: 13px 0 0; color: rgba(255,255,255,.48); font-family: var(--mono); font-size: .64rem; text-align: center; }
+    .status { display: none; margin-top: 14px; padding: 11px 13px; border: 1px solid rgba(255,255,255,.12); border-radius: 13px; background: rgba(255,255,255,.055); font-size: .76rem; }
+    .status.visible { display: block; }
+    .progress { height: 5px; margin-top: 9px; overflow: hidden; border-radius: 99px; background: rgba(255,255,255,.11); }
+    .progress span { display: block; width: 0; height: 100%; background: var(--lime); transition: width .2s ease; }
+    .alert { display: none; margin-top: 11px; padding: 10px 12px; border-radius: 11px; color: #ffd8d4; background: rgba(180,35,24,.18); font-size: .75rem; }
+    .alert.visible { display: block; }
+
+    /* ---------- Results ---------- */
+    .results { padding: 40px 0 8px; }
+    .results-head { display: none; align-items: flex-end; justify-content: space-between; gap: 20px; margin-bottom: 20px; }
+    .results-head.visible { display: flex; }
+    .results-head h2 { margin: 0; font-size: clamp(1.8rem,4vw,2.7rem); line-height: 1.05; letter-spacing: -.045em; }
+    .results-head p { margin: 8px 0 0; color: var(--muted); font-size: .88rem; }
+    .result-list { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 18px; }
+    .result-card { overflow: hidden; border: 1px solid var(--line); border-radius: 22px; background: white; box-shadow: var(--shadow); animation: rise .35s ease both; }
+    @keyframes rise { from { opacity: 0; transform: translateY(9px); } }
+    .result-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 17px 13px; }
+    .file { display: flex; min-width: 0; align-items: center; gap: 10px; }
+    .ext { display: grid; width: 42px; height: 42px; flex: 0 0 auto; place-items: center; border-radius: 12px; color: var(--green-dark); background: var(--green-soft); font: 850 .68rem var(--mono); }
+    .file strong { display: block; max-width: 280px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: .86rem; }
+    .file span { display: block; color: var(--muted); font-size: .68rem; }
+    .status-pill { padding: 6px 9px; border-radius: 99px; color: var(--green-dark); background: var(--green-soft); font-size: .64rem; font-weight: 900; white-space: nowrap; }
+    .preview { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; padding: 0 12px; }
+    .preview figure { min-width: 0; margin: 0; }
+    .preview figcaption { display: flex; justify-content: space-between; margin: 0 3px 5px; color: var(--muted); font-size: .59rem; font-weight: 850; letter-spacing: .08em; text-transform: uppercase; }
+    .image { display: grid; aspect-ratio: 4/3; overflow: hidden; place-items: center; border: 1px solid var(--line); border-radius: 13px; background: #edf1ec; }
+    .image img { width: 100%; height: 100%; object-fit: contain; }
+    .summary { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 15px 17px 11px; }
+    .summary strong { font-size: 1.3rem; letter-spacing: -.035em; }
+    .summary span { color: var(--ink-soft); font-size: .72rem; font-weight: 750; }
+    .sizes { color: var(--muted); font: .65rem var(--mono); text-align: right; }
+    .sizes b { display: block; color: var(--green-dark); }
+    .tags { display: flex; flex-wrap: wrap; gap: 5px; padding: 0 17px 14px; }
+    .tag { padding: 4px 7px; border: 1px solid var(--line); border-radius: 99px; color: var(--muted); background: var(--tint); font-size: .6rem; font-weight: 750; }
+    .download { width: 100%; border-radius: 0; background: var(--ink); }
+    .failure { grid-column: 1 / -1; padding: 20px; border: 1px solid #f5c4be; border-radius: 20px; background: var(--danger-soft); }
+    .failure strong { color: var(--danger); }
+    .failure p { margin: 4px 0 0; color: #7d3029; font-size: .8rem; }
+
+    /* ---------- Long-form content ---------- */
+    .section { padding: 72px 0; }
+    .section-tight { padding: 45px 0; }
+    .kicker { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 11px; color: var(--green-dark); font-size: .72rem; font-weight: 900; letter-spacing: .13em; text-transform: uppercase; }
+    .kicker::before { content: ""; width: 21px; height: 2px; background: var(--green); }
+    h2.section-title { max-width: 800px; margin: 0; font-size: clamp(2rem,4.7vw,3.45rem); line-height: 1.04; letter-spacing: -.052em; }
+    .section-copy { max-width: 760px; margin: 17px 0 0; color: var(--muted); font-size: 1rem; }
+    .explain-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 17px; margin-top: 30px; }
+    .card { padding: 23px; border: 1px solid var(--line); border-radius: 20px; background: rgba(255,255,255,.84); box-shadow: 0 8px 28px rgba(18,32,25,.06); }
+    .card h3 { margin: 0 0 8px; font-size: 1rem; letter-spacing: -.02em; }
+    .card p { margin: 0; color: var(--muted); font-size: .82rem; }
+    .card p + p { margin-top: 10px; }
+    .steps { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-top: 30px; }
+    .step { padding: 23px; border: 1px solid var(--line); border-radius: 20px; background: rgba(255,255,255,.82); }
+    .step-num { display: grid; width: 40px; height: 40px; place-items: center; border-radius: 13px; color: var(--green-dark); background: var(--green-soft); font: 900 .72rem var(--mono); }
+    .step h3 { margin: 17px 0 7px; font-size: .98rem; }
+    .step p { margin: 0; color: var(--muted); font-size: .8rem; }
+    .warning { display: grid; grid-template-columns: 48px minmax(0,1fr); gap: 17px; align-items: start; padding: 26px; border: 1px solid #eadcae; border-radius: 22px; background: #fff9e8; }
+    .warning-icon { display: grid; width: 48px; height: 48px; place-items: center; border-radius: 15px; background: #fff0bd; font-size: 1.3rem; }
+    .warning h2 { margin: 0; font-size: clamp(1.45rem,3vw,2.15rem); line-height: 1.1; letter-spacing: -.035em; }
+    .warning p { margin: 10px 0 0; color: #675d40; font-size: .84rem; }
+    .faq { display: grid; gap: 10px; max-width: 900px; margin: 28px auto 0; }
+    details { overflow: hidden; border: 1px solid var(--line); border-radius: 17px; background: rgba(255,255,255,.84); }
+    summary { position: relative; padding: 19px 52px 19px 19px; cursor: pointer; list-style: none; font-size: .91rem; font-weight: 850; }
+    summary::-webkit-details-marker { display: none; }
+    summary::after { content: "+"; position: absolute; top: 17px; right: 18px; display: grid; width: 25px; height: 25px; place-items: center; border-radius: 8px; color: var(--green-dark); background: var(--green-soft); transition: .18s ease; }
+    details[open] summary::after { transform: rotate(45deg); }
+    details p { margin: 0; padding: 0 19px 19px; color: var(--muted); font-size: .83rem; }
+    .links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+    .links a { padding: 10px 13px; border: 1px solid var(--line); border-radius: 12px; color: var(--green-dark); background: white; font-size: .77rem; font-weight: 800; text-decoration: none; }
+    footer { margin-top: 30px; padding: 43px 0 25px; color: rgba(255,255,255,.65); background: #10231a; }
+    .footer-grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: 50px; }
+    footer strong { color: white; }
+    footer p { margin: 12px 0 0; font-size: .77rem; }
+    .footer-bottom { display: flex; justify-content: space-between; gap: 18px; margin-top: 30px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,.1); font-size: .67rem; }
+    .footer-bottom a { color: var(--lime); }
+    code { padding: 2px 5px; border-radius: 5px; background: var(--tint); font: .88em var(--mono); }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 940px) {
+      .hero, .explain-grid, .footer-grid { grid-template-columns: 1fr; }
+      .hero { gap: 34px; }
+      .tool-card { max-width: 680px; }
+      .results-head, .related { align-items: flex-start; flex-direction: column; }
+      .related .button { width: 100%; }
+      .result-list { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 760px) {
+      .container { width: min(calc(100% - 24px), var(--container)); }
+      .nav-links { display: none; }
+      .section { padding: 55px 0; }
+      .steps { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; }
+    }
+    @media (max-width: 520px) {
+      h1 { font-size: clamp(2.75rem,15vw,4rem); }
+      .local { font-size: 0; gap: 0; }
+      .local::after { content: "Local"; margin-left: 6px; font-size: .67rem; }
+      .actions .button { width: 100%; }
+      .tool-card { padding: 18px; border-radius: 26px; }
+      .warning { grid-template-columns: 1fr; }
+      .preview { grid-template-columns: 1fr; }
+      .summary { align-items: flex-start; flex-direction: column; }
+      .sizes { text-align: left; }
+    }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { animation-duration: .001ms !important; transition-duration: .001ms !important; } }
+  </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "@id": "https://ai-metadata-cleaner.com/remove-ai-label/#app",
+        "name": "AI Label Remover",
+        "url": "https://ai-metadata-cleaner.com/remove-ai-label",
+        "description": "A browser-local tool that removes C2PA content credentials, IPTC digital source type, XMP AI-source fields and EXIF metadata from photos.",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "Any",
+        "browserRequirements": "Requires JavaScript. Works in modern desktop and mobile browsers.",
+        "isAccessibleForFree": true,
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "image": "https://ai-metadata-cleaner.com/og-image.png"
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Can this remove the AI info label Instagram shows on my photos?",
+            "acceptedAnswer": { "@type": "Answer", "text": "This tool removes AI metadata embedded in the file itself, including supported C2PA content credentials and IPTC digital source type. If Instagram has already added a label to a post, that label is stored in Instagram's system and this tool cannot change it. Clean the original image before uploading it to Instagram." }
+          },
+          {
+            "@type": "Question",
+            "name": "Does it keep my photos private?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Yes. All processing happens locally in your browser. Your images are never uploaded and the page makes no network requests." }
+          },
+          {
+            "@type": "Question",
+            "name": "What exactly is removed?",
+            "acceptedAnswer": { "@type": "Answer", "text": "The cleaner removes supported C2PA content credentials, IPTC digital source type, XMP AI-source metadata, EXIF, GPS, camera, author, copyright, software and embedded thumbnail data when present." }
+          },
+          {
+            "@type": "Question",
+            "name": "Does it work on JPEG, PNG and WEBP?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Yes. JPEG, JPG, PNG, WebP and GIF receive direct metadata stripping. AVIF, BMP and TIFF are accepted when the browser can decode them and use a local fallback." }
+          },
+          {
+            "@type": "Question",
+            "name": "Is it free?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Yes. The tool is currently free and supports up to 5 images per batch. No account is required." }
+          }
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://ai-metadata-cleaner.com/" },
+          { "@type": "ListItem", "position": 2, "name": "Remove AI Label", "item": "https://ai-metadata-cleaner.com/remove-ai-label" }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="../index.html" aria-label="AI Metadata Cleaner home">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 5 6v5c0 4.6 2.8 8.3 7 10 4.2-1.7 7-5.4 7-10V6l-7-3Z"></path><path d="m9.2 12 1.8 1.8 3.9-4"></path></svg>
+        </span>
+        <span>Local Photo Cleaner</span>
+      </a>
+      <nav class="nav-links" aria-label="Primary navigation">
+        <a href="../index.html#cleaner">Cleaner</a>
+        <a href="#how-to">How it works</a>
+        <a href="#instagram">Instagram labels</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+      <span class="local">Local-only processing</span>
+    </div>
+  </header>
+
+  <main>
+    <nav class="breadcrumb container" aria-label="Breadcrumb">
+      <a href="../index.html">AI Metadata Cleaner</a><span aria-hidden="true">/</span><span>Remove AI Label</span>
+    </nav>
+
+    <!-- Transactional hero and working cleaner -->
+    <section class="container hero">
+      <div>
+        <div class="eyebrow">Remove embedded AI labels before you share</div>
+        <h1>Remove AI Labels from Your Photos</h1>
+        <p class="lede">Strip AI-generated labels &amp; C2PA content credentials from JPEG &amp; PNG photos in one click. Free, private, no signup.</p>
+        <p class="intro">This page is for creators, sellers and everyday users who want to remove AI metadata from a photo before uploading it to Instagram, a marketplace, a newsletter or a publishing platform.</p>
+        <div class="actions">
+          <a class="button button-primary" href="#ai-label-cleaner">Remove AI label now ↓</a>
+          <a class="button button-secondary" href="#instagram">Will it remove Instagram’s label?</a>
+        </div>
+      </div>
+
+      <div class="tool-card" id="ai-label-cleaner">
+        <div class="tool-head">
+          <div>
+            <h2>Remove embedded AI label data</h2>
+            <p>Up to 5 images. Files never leave your device.</p>
+          </div>
+          <span class="mode">Local mode</span>
+        </div>
+        <div class="drop-zone" id="dropZone" role="button" tabindex="0" aria-describedby="uploadHelp">
+          <input id="fileInput" type="file" accept="image/jpeg,image/png,image/webp,image/gif,image/avif,image/bmp,image/tiff,.jpg,.jpeg,.png,.webp,.gif,.avif,.bmp,.tif,.tiff" multiple>
+          <div>
+            <div class="drop-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4"></path><path d="m7 9 5-5 5 5"></path><path d="M5 14v4a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4"></path></svg>
+            </div>
+            <h3>Drop up to 5 photos here</h3>
+            <p>or <span class="choose">Choose images</span> from your device</p>
+          </div>
+        </div>
+        <p id="uploadHelp" class="formats">JPEG · JPG · PNG · WEBP · GIF · AVIF · BMP · TIFF</p>
+        <div class="status" id="batchStatus" role="status" aria-live="polite">
+          <div><span id="statusText">Preparing…</span> <span id="statusCount"></span></div>
+          <div class="progress"><span id="progressBar"></span></div>
+        </div>
+        <div class="alert" id="alertBox" role="alert"></div>
+      </div>
+    </section>
+
+    <!-- Results -->
+    <section class="container results" id="resultsSection" aria-labelledby="resultsTitle">
+      <div class="results-head" id="resultsHead">
+        <div>
+          <span class="kicker">Cleaned locally</span>
+          <h2 id="resultsTitle">Your cleaned AI-label photos</h2>
+          <p>Compare the original and cleaned files, then download each result.</p>
+        </div>
+        <button class="button button-lime" id="downloadAll" type="button">Download all</button>
+      </div>
+      <div class="result-list" id="resultList"></div>
+    </section>
+
+    <!-- Intent explanation -->
+    <section class="section container" aria-labelledby="meaningTitle">
+      <span class="kicker">What an AI label means</span>
+      <h2 class="section-title" id="meaningTitle">What is an AI label on a photo?</h2>
+      <p class="section-copy">“Remove AI label” can mean two different jobs. One is removing an embedded content credential from the image file. The other is trying to change a label already attached to a post inside a social network. Only the first one can be done by editing the file.</p>
+      <div class="explain-grid">
+        <article class="card">
+          <h3>Embedded AI metadata</h3>
+          <p>C2PA content credentials are signed manifests that can record how an image was created or edited. IPTC digital source type can mark an image as trained algorithmic media, composite or synthetic. XMP fields may contain similar AI-source details.</p>
+          <p>These declarations travel with the file until the metadata container is stripped or the image is re-encoded without it.</p>
+        </article>
+        <article class="card">
+          <h3>Platform-side AI labels</h3>
+          <p>Instagram and other platforms may detect an image, remember an upload and display a label inside their own systems. That label is not stored in the copy on your computer, so removing file metadata cannot edit a label that a platform has already attached.</p>
+          <p>For that reason, clean the original file before uploading. This removes the embedded information the platform can read during a future upload.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- How-to steps -->
+    <section class="section container" id="how-to" aria-labelledby="howTitle">
+      <span class="kicker">How to remove an AI label</span>
+      <h2 class="section-title" id="howTitle">How to remove AI labels from photos in three steps</h2>
+      <p class="section-copy">The process is designed for one-off edits and small batches. Your selected images stay in the browser tab, and the downloaded copies have metadata containers removed when a direct parser is available.</p>
+      <div class="steps">
+        <article class="step">
+          <span class="step-num">01</span>
+          <h3>Choose the original photo</h3>
+          <p>Drop up to five images into the upload area. The browser reads the files locally; no image is sent to a server.</p>
+        </article>
+        <article class="step">
+          <span class="step-num">02</span>
+          <h3>Strip AI and privacy fields</h3>
+          <p>The cleaner checks for C2PA, IPTC, XMP, EXIF, GPS, camera, author and software metadata. JPEG, PNG, WebP and GIF are cleaned directly; other supported formats use a local browser decode fallback.</p>
+        </article>
+        <article class="step">
+          <span class="step-num">03</span>
+          <h3>Review and download</h3>
+          <p>Check the before/after preview and metadata count. Download the cleaned file, then share that new copy rather than the original.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Instagram honesty block -->
+    <section class="section-tight container" id="instagram">
+      <div class="warning">
+        <div class="warning-icon" aria-hidden="true">⚠️</div>
+        <div>
+          <h2>Remove AI labels from Instagram photos – what this tool can and cannot do</h2>
+          <p>It removes AI metadata embedded in the photo file before a future upload, including supported C2PA content credentials and IPTC digital source type. If Instagram has already detected and labeled a photo you uploaded, that label lives in Instagram’s system, not in the photo file — this tool cannot change that existing label. To remove AI info from an Instagram post, clean the original image before you upload it to Instagram.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Detailed removed fields -->
+    <section class="section container" aria-labelledby="removedTitle">
+      <span class="kicker">What gets removed</span>
+      <h2 class="section-title" id="removedTitle">AI labels and metadata removed from the downloaded file</h2>
+      <p class="section-copy">The exact fields depend on the source file. When present, the cleaner targets the following metadata groups.</p>
+      <div class="explain-grid">
+        <article class="card"><h3>C2PA content credentials</h3><p>Signed provenance manifests that may describe generation, editing, tools and review history.</p></article>
+        <article class="card"><h3>IPTC digital source type</h3><p>Fields that can mark media as trained algorithmic media, composite or synthetic content.</p></article>
+        <article class="card"><h3>XMP AI-source fields</h3><p>Adobe-style metadata packets that may carry AI-source labels, editing history and software details.</p></article>
+        <article class="card"><h3>EXIF, GPS and camera data</h3><p>Camera make, model, lens, exposure, ISO, timestamps, author, GPS coordinates and embedded thumbnails.</p></article>
+      </div>
+      <div class="links">
+        <a href="../index.html#what-removed">See the full metadata removal list</a>
+        <a href="../index.html#faq">Read privacy and quality FAQ</a>
+        <a href="../index.html#how-it-works">Learn how the browser cleaner works</a>
+      </div>
+    </section>
+
+    <section class="section-tight container" aria-labelledby="relatedTitle">
+      <div class="related">
+        <div>
+          <span class="kicker">Related tools</span>
+          <h2 id="relatedTitle">Clean all photo metadata, not just AI labels</h2>
+          <p>Need to remove EXIF, GPS, camera, author or software tags as well? Use the full AI metadata cleaner on the homepage.</p>
+        </div>
+        <a class="button button-primary" href="../index.html#cleaner">Open AI Metadata Cleaner →</a>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section container" id="faq" aria-labelledby="faqTitle">
+      <span class="kicker">Straight answers</span>
+      <h2 class="section-title" id="faqTitle">Remove AI label FAQ</h2>
+      <p class="section-copy">A clean answer matters as much as a clean file. These are the limits of a browser-only metadata remover.</p>
+      <div class="faq">
+        <details open>
+          <summary>Can this remove the “AI info” label Instagram shows on my photos?</summary>
+          <p>This tool removes AI metadata embedded in the file itself, including supported C2PA content credentials and IPTC digital source type, so future shares can be clean. If Instagram has already detected and labeled a photo you uploaded, that label lives in Instagram’s system, not in the photo file — this tool cannot change that existing label. Clean the original image before uploading it to Instagram.</p>
+        </details>
+        <details>
+          <summary>Does it keep my photos private?</summary>
+          <p>Yes. All processing happens locally in your browser. Your images are never uploaded, this page makes no network requests, and no third-party scripts or analytics are loaded.</p>
+        </details>
+        <details>
+          <summary>What exactly is removed?</summary>
+          <p>The cleaner removes supported C2PA content credentials, IPTC digital source type fields, XMP AI-source metadata and related EXIF data when present. It can also remove GPS coordinates, camera make and model, exposure settings, author, copyright, software tags and embedded thumbnails.</p>
+        </details>
+        <details>
+          <summary>Does it work on JPEG, PNG and WEBP?</summary>
+          <p>Yes. JPEG/JPG, PNG, WebP and GIF receive direct metadata stripping. AVIF, BMP and TIFF are also accepted when your browser can decode them; those less common formats use a local Canvas fallback. The current batch limit is 5 images.</p>
+        </details>
+        <details>
+          <summary>Is it free?</summary>
+          <p>Yes. The tool is currently free and supports up to 5 images per batch. No account, email or payment is required.</p>
+        </details>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <strong>AI Metadata Cleaner</strong>
+          <p><strong>Privacy promise:</strong> your files are processed only on this device. This page does not upload, store or transmit your images.</p>
+        </div>
+        <div>
+          <p><strong>Service scope:</strong> this tool removes metadata from the downloaded file. It cannot edit labels or records already stored by Instagram, Meta or another platform. AI labels can include C2PA content credentials and IPTC digital source type, but a social platform may use additional detection methods.</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© <span id="year">2026</span> AI Metadata Cleaner</span>
+        <a href="../index.html#cleaner">Clean another batch ↑</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (() => {
+      "use strict";
+      const MAX_FILES = 5;
+      const state = { results: [], urls: new Set(), busy: false, batch: 0 };
+      const fileInput = document.getElementById("fileInput");
+      const dropZone = document.getElementById("dropZone");
+      const batchStatus = document.getElementById("batchStatus");
+      const statusText = document.getElementById("statusText");
+      const statusCount = document.getElementById("statusCount");
+      const progressBar = document.getElementById("progressBar");
+      const alertBox = document.getElementById("alertBox");
+      const resultsHead = document.getElementById("resultsHead");
+      const resultList = document.getElementById("resultList");
+      const downloadAllButton = document.getElementById("downloadAll");
+      document.getElementById("year").textContent = new Date().getFullYear();
+
+      const wait = () => new Promise((resolve) => setTimeout(resolve, 0));
+      const unique = (items) => [...new Set(items.filter(Boolean))];
+      const ascii = (bytes, offset, length) => Array.from(bytes.slice(offset, offset + length), (value) => String.fromCharCode(value)).join("");
+      const readU32LE = (bytes, offset) => (bytes[offset] | bytes[offset + 1] << 8 | bytes[offset + 2] << 16 | bytes[offset + 3] << 24) >>> 0;
+      const ext = (name) => (String(name).match(/\.([a-z0-9]+)$/i) || ["", ""])[1].toLowerCase();
+      const stem = (name) => String(name).replace(/\.[^.]+$/, "").replace(/[\\/:*?"<>|]+/g, "-") || "image";
+      const bytes = (size) => {
+        if (!Number.isFinite(size) || size <= 0) return "0 B";
+        const units = ["B", "KB", "MB", "GB"];
+        const i = Math.min(Math.floor(Math.log(size) / Math.log(1024)), units.length - 1);
+        return `${(size / 1024 ** i).toFixed(i ? 1 : 0)} ${units[i]}`;
+      };
+      const createUrl = (blob) => { const url = URL.createObjectURL(blob); state.urls.add(url); return url; };
+      const revoke = (url) => { if (url) { URL.revokeObjectURL(url); state.urls.delete(url); } };
+      const escapeHtml = (value) => String(value).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+      const addLabel = (map, label) => map.set(label, (map.get(label) || 0) + 1);
+      const labelList = (map) => [...map.entries()].sort((a, b) => b[1] - a[1]).map(([label, count]) => count > 1 ? `${label} (${count})` : label);
+
+      function formatOf(data, file) {
+        if (data[0] === 0xff && data[1] === 0xd8) return "jpeg";
+        if (ascii(data, 1, 3) === "PNG") return "png";
+        if (ascii(data, 0, 4) === "RIFF" && ascii(data, 8, 4) === "WEBP") return "webp";
+        if (["GIF87a", "GIF89a"].includes(ascii(data, 0, 6))) return "gif";
+        if (data[0] === 0x42 && data[1] === 0x4d) return "bmp";
+        if (data[0] === 0x49 && data[1] === 0x49 || data[0] === 0x4d && data[1] === 0x4d) return "tiff";
+        if (ascii(data, 4, 4) === "ftyp" && ascii(data, 8, 4).startsWith("avi")) return "avif";
+        const type = String(file.type || "").toLowerCase();
+        if (type.startsWith("image/")) return type.slice(6).replace("jpeg", "jpeg");
+        return ext(file.name) === "jpg" ? "jpeg" : ext(file.name);
+      }
+
+      function stripJpeg(data) {
+        const chunks = [data.slice(0, 2)];
+        const labels = new Map();
+        let count = 0, offset = 2;
+        while (offset < data.length) {
+          if (data[offset] !== 0xff) return null;
+          const start = offset;
+          while (data[offset] === 0xff) offset += 1;
+          const marker = data[offset++];
+          if (marker === 0xda) { chunks.push(data.slice(start)); break; }
+          if (marker === 0xd9) { chunks.push(data.slice(start, offset)); break; }
+          if (marker === 0x01 || (marker >= 0xd0 && marker <= 0xd7)) { chunks.push(data.slice(start, offset)); continue; }
+          if (offset + 2 > data.length) return null;
+          const length = (data[offset] << 8) | data[offset + 1];
+          if (length < 2 || offset + length > data.length) return null;
+          const end = offset + length;
+          const remove = marker === 0xfe || (marker >= 0xe0 && marker <= 0xef && marker !== 0xe2 && marker !== 0xee);
+          if (remove) {
+            let label = marker === 0xe0 ? "JFIF header" : marker === 0xfe ? "JPEG comment" : marker === 0xeb ? "C2PA content credentials" : marker === 0xed ? "IPTC / Photoshop metadata" : marker === 0xe1 ? "EXIF / XMP" : `APP${marker - 0xe0} metadata`;
+            const header = ascii(data, start + 4, Math.min(length - 2, 40));
+            if (marker === 0xe1 && header.includes("Exif")) label = "EXIF";
+            if (marker === 0xe1 && /xap|xmp/i.test(header)) label = "XMP / AI source info";
+            addLabel(labels, label); count += 1;
+          } else chunks.push(data.slice(start, end));
+          offset = end;
+        }
+        return { blob: count ? new Blob(chunks, { type: "image/jpeg" }) : null, count, labels: labelList(labels), mime: "image/jpeg", ext: "jpg" };
+      }
+
+      function stripPng(data) {
+        const removeTypes = new Set(["eXIf", "tEXt", "zTXt", "iTXt", "tIME", "caBX", "dSIG"]);
+        const chunks = [data.slice(0, 8)];
+        const labels = new Map();
+        let count = 0, offset = 8;
+        while (offset + 12 <= data.length) {
+          const length = (data[offset] << 24 | data[offset + 1] << 16 | data[offset + 2] << 8 | data[offset + 3]) >>> 0;
+          const end = offset + 12 + length;
+          if (end > data.length) return null;
+          const type = ascii(data, offset + 4, 4);
+          if (removeTypes.has(type)) {
+            const label = type === "eXIf" ? "EXIF" : type === "caBX" ? "C2PA content credentials" : type === "iTXt" ? "XMP / international text" : "PNG text metadata";
+            addLabel(labels, label); count += 1;
+          } else chunks.push(data.slice(offset, end));
+          offset = end;
+          if (type === "IEND") break;
+        }
+        return { blob: count ? new Blob(chunks, { type: "image/png" }) : null, count, labels: labelList(labels), mime: "image/png", ext: "png" };
+      }
+
+      function stripWebp(data) {
+        const keep = new Set(["VP8 ", "VP8L", "VP8X", "ALPH", "ANIM", "ANMF", "ICCP"]);
+        const labels = new Map();
+        const chunks = [];
+        let count = 0, offset = 12;
+        while (offset + 8 <= data.length) {
+          const type = ascii(data, offset, 4);
+          const size = readU32LE(data, offset + 4);
+          const end = offset + 8 + size;
+          const padded = end + size % 2;
+          if (padded > data.length) return null;
+          if (!keep.has(type)) {
+            addLabel(labels, type === "EXIF" ? "EXIF" : type === "XMP " ? "XMP / AI source info" : "C2PA / metadata");
+            count += 1;
+          } else chunks.push({ type, start: offset, end, size });
+          offset = padded;
+        }
+        let total = 4;
+        chunks.forEach((chunk) => { total += 8 + chunk.size + chunk.size % 2; });
+        const out = new Uint8Array(8 + total);
+        out.set(data.slice(0, 4), 0);
+        out[4] = total & 255; out[5] = total >>> 8 & 255; out[6] = total >>> 16 & 255; out[7] = total >>> 24 & 255;
+        out.set(data.slice(8, 12), 8);
+        let write = 12;
+        let vp8xWrite = -1;
+        chunks.forEach((chunk) => {
+          out.set(data.slice(chunk.start, chunk.end), write);
+          if (chunk.type === "VP8X") vp8xWrite = write;
+          write += 8 + chunk.size + chunk.size % 2;
+        });
+        if (vp8xWrite >= 0 && vp8xWrite + 8 < out.length) {
+          const hasIcc = chunks.some((chunk) => chunk.type === "ICCP");
+          let flags = out[vp8xWrite + 8];
+          flags &= ~0x0c;
+          if (hasIcc) flags |= 0x20;
+          out[vp8xWrite + 8] = flags;
+        }
+        return { blob: count ? new Blob([out], { type: "image/webp" }) : null, count, labels: labelList(labels), mime: "image/webp", ext: "webp" };
+      }
+
+      function subEnd(data, offset) {
+        while (offset < data.length) {
+          const size = data[offset++];
+          if (!size) return offset;
+          if (offset + size > data.length) return -1;
+          offset += size;
+        }
+        return -1;
+      }
+
+      function stripGif(data) {
+        if (data.length < 13) return null;
+        const pieces = [data.slice(0, 13)];
+        const labels = new Map();
+        let count = 0, offset = 13;
+        if (data[10] & 0x80) offset += 3 * 2 ** ((data[10] & 7) + 1);
+        pieces[0] = data.slice(0, offset);
+        while (offset < data.length) {
+          const marker = data[offset];
+          if (marker === 0x3b) { pieces.push(data.slice(offset, offset + 1)); break; }
+          if (marker === 0x2c) {
+            const packed = data[offset + 9];
+            let end = offset + 10 + ((packed & 0x80) ? 3 * 2 ** ((packed & 7) + 1) : 0);
+            end = subEnd(data, end + 1);
+            if (end < 0) return null;
+            pieces.push(data.slice(offset, end)); offset = end; continue;
+          }
+          if (marker !== 0x21) return null;
+          const label = data[offset + 1];
+          const start = offset;
+          if (label === 0xfe) {
+            const end = subEnd(data, offset + 2);
+            if (end < 0) return null;
+            addLabel(labels, "GIF comment"); count += 1; offset = end; continue;
+          }
+          if (label === 0xff) {
+            const appSize = data[offset + 2];
+            const app = ascii(data, offset + 3, Math.min(appSize, 11));
+            const end = subEnd(data, offset + 3 + appSize);
+            if (end >= 0 && !["NETSCAPE2.0", "ANIMEXTS1.0"].includes(app) && /XMP|C2PA|JUMBF|EXIF|Adobe/i.test(app)) {
+              addLabel(labels, /C2PA|JUMBF/i.test(app) ? "C2PA content credentials" : "Application metadata");
+              count += 1; offset = end; continue;
+            }
+            if (end < 0) return null;
+            pieces.push(data.slice(start, end)); offset = end; continue;
+          }
+          const end = subEnd(data, offset + 2);
+          if (end < 0) return null;
+          pieces.push(data.slice(start, end)); offset = end;
+        }
+        return { blob: count ? new Blob(pieces, { type: "image/gif" }) : null, count, labels: labelList(labels), mime: "image/gif", ext: "gif" };
+      }
+
+      function metadataHints(data) {
+        const sample = Array.from(data.slice(0, Math.min(data.length, 512000)), (value) => String.fromCharCode(value)).join("").toLowerCase();
+        const labels = [];
+        if (/exif/.test(sample)) labels.push("EXIF");
+        if (/gps|geotag/.test(sample)) labels.push("GPS location");
+        if (/c2pa|jumbf|content credential/.test(sample)) labels.push("C2PA content credentials");
+        if (/xmp|digital source type/.test(sample)) labels.push("XMP / AI source info");
+        return unique(labels);
+      }
+
+      function loadImage(file) {
+        return new Promise((resolve, reject) => {
+          const url = URL.createObjectURL(file);
+          const image = new Image();
+          image.onload = () => { URL.revokeObjectURL(url); resolve(image); };
+          image.onerror = () => { URL.revokeObjectURL(url); reject(new Error("This browser cannot decode that format.")); };
+          image.src = url;
+        });
+      }
+
+      async function decode(file) {
+        if ("createImageBitmap" in window) { try { return await createImageBitmap(file); } catch (_) {} }
+        return loadImage(file);
+      }
+
+      async function fallback(file, format) {
+        const image = await decode(file);
+        const canvas = document.createElement("canvas");
+        canvas.width = image.width || image.naturalWidth;
+        canvas.height = image.height || image.naturalHeight;
+        if (!canvas.width || !canvas.height) throw new Error("Image dimensions could not be read.");
+        canvas.getContext("2d", { alpha: true }).drawImage(image, 0, 0, canvas.width, canvas.height);
+        if (image.close) image.close();
+        const mime = format === "jpeg" ? "image/jpeg" : format === "webp" ? "image/webp" : "image/png";
+        const blob = await new Promise((resolve, reject) => canvas.toBlob((value) => value ? resolve(value) : reject(new Error("Could not create the cleaned image.")), mime, mime === "image/jpeg" ? .96 : undefined));
+        return { blob, count: metadataHints(new Uint8Array(await file.arrayBuffer())).length, labels: metadataHints(new Uint8Array(await file.arrayBuffer())), mime, ext: mime === "image/jpeg" ? "jpg" : mime === "image/webp" ? "webp" : "png", fallback: true };
+      }
+
+      async function clean(file) {
+        const data = new Uint8Array(await file.arrayBuffer());
+        const format = formatOf(data, file);
+        let result = null;
+        try {
+          if (format === "jpeg") result = stripJpeg(data);
+          else if (format === "png") result = stripPng(data);
+          else if (format === "webp") result = stripWebp(data);
+          else if (format === "gif") result = stripGif(data);
+        } catch (_) { result = null; }
+        if (!result) result = await fallback(file, format);
+        if (!result.blob) result = { ...result, blob: new Blob([data], { type: result.mime }), fallback: false };
+        return {
+          sourceName: file.name,
+          filename: `${stem(file.name)}_cleaned.${result.ext}`,
+          originalSize: file.size,
+          cleanedSize: result.blob.size,
+          count: result.count || 0,
+          labels: result.labels || [],
+          originalBlob: file.slice(0, file.size, file.type || "application/octet-stream"),
+          blob: result.blob,
+          fallback: Boolean(result.fallback)
+        };
+      }
+
+      function showAlert(message) { alertBox.textContent = message; alertBox.classList.add("visible"); }
+      function setStatus(text, count, progress) {
+        batchStatus.classList.add("visible"); statusText.textContent = text; statusCount.textContent = count; progressBar.style.width = `${progress}%`;
+      }
+      function setBusy(value) { state.busy = value; dropZone.style.cursor = value ? "wait" : "pointer"; }
+      function clear() {
+        state.results.forEach((result) => { revoke(result.beforeUrl); revoke(result.afterUrl); });
+        state.results = []; resultList.replaceChildren(); resultsHead.classList.remove("visible");
+      }
+
+      function render(result, index) {
+        const card = document.createElement("article");
+        card.className = "result-card";
+        const beforeUrl = createUrl(result.originalBlob);
+        const afterUrl = createUrl(result.blob);
+        result.beforeUrl = beforeUrl; result.afterUrl = afterUrl;
+        const delta = result.originalSize ? ((result.cleanedSize - result.originalSize) / result.originalSize) * 100 : 0;
+        const deltaText = `${delta > 0 ? "+" : "−"}${Math.abs(delta).toFixed(1)}% ${delta > 0 ? "larger" : "smaller"}`;
+        const countText = result.count ? `${result.count} metadata item${result.count === 1 ? "" : "s"} removed` : "No removable metadata found";
+        card.innerHTML = `
+          <div class="result-head">
+            <div class="file"><span class="ext">${ext(result.filename).toUpperCase()}</span><div><strong title="${escapeHtml(result.sourceName)}">${escapeHtml(result.sourceName)}</strong><span>${result.fallback ? "Local re-encode" : "Direct metadata strip"} · ${escapeHtml(result.filename)}</span></div></div>
+            <span class="status-pill">Cleaned</span>
+          </div>
+          <div class="preview">
+            <figure><figcaption><span>Before</span><span>${bytes(result.originalSize)}</span></figcaption><div class="image"><img src="${beforeUrl}" width="1200" height="900" decoding="async" alt="Original preview of ${escapeHtml(result.sourceName)}"></div></figure>
+            <figure><figcaption><span>After</span><span>${bytes(result.cleanedSize)}</span></figcaption><div class="image"><img src="${afterUrl}" width="1200" height="900" decoding="async" alt="Cleaned preview of ${escapeHtml(result.sourceName)}"></div></figure>
+          </div>
+          <div class="summary"><div><strong>${result.count}</strong> <span>${countText.replace(/^\d+\s*/, "")}</span></div><div class="sizes">${bytes(result.originalSize)} → ${bytes(result.cleanedSize)}<b>${deltaText}</b></div></div>
+          <div class="tags">${result.labels.slice(0, 5).map((label) => `<span class="tag">${escapeHtml(label)}</span>`).join("")}</div>
+          <button class="button download" type="button">Download ${escapeHtml(result.filename)}</button>`;
+        card.querySelector("button").addEventListener("click", () => download(index));
+        return card;
+      }
+
+      function download(index) {
+        const result = state.results[index];
+        if (!result) return;
+        const url = URL.createObjectURL(result.blob);
+        const link = document.createElement("a");
+        link.href = url; link.download = result.filename;
+        document.body.appendChild(link); link.click(); link.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 1500);
+      }
+
+      async function processFiles(fileList) {
+        if (state.busy) return;
+        const incoming = Array.from(fileList || []);
+        if (!incoming.length) return;
+        clear(); alertBox.classList.remove("visible");
+        if (incoming.length > MAX_FILES) showAlert(`Only the first ${MAX_FILES} images will be processed per batch.`);
+        const files = incoming.slice(0, MAX_FILES);
+        const batch = ++state.batch;
+        setBusy(true); resultsHead.classList.add("visible");
+        for (let index = 0; index < files.length; index += 1) {
+          setStatus(`Cleaning ${files[index].name}…`, `${index + 1} / ${files.length}`, index / files.length * 100);
+          await wait();
+          try {
+            const result = await clean(files[index]);
+            if (batch !== state.batch) return;
+            state.results[index] = result;
+            resultList.appendChild(render(result, index));
+          } catch (error) {
+            const card = document.createElement("article");
+            card.className = "failure";
+            card.innerHTML = `<strong>${escapeHtml(files[index].name)} could not be cleaned</strong><p>${escapeHtml(error.message)}</p>`;
+            resultList.appendChild(card);
+          }
+        }
+        setBusy(false); setStatus(`Done — ${state.results.filter(Boolean).length} cleaned image${state.results.filter(Boolean).length === 1 ? "" : "s"} ready`, `${state.results.filter(Boolean).length} / ${files.length}`, 100);
+        document.getElementById("resultsSection").scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+
+      async function downloadAll() {
+        if (!state.results.length || state.busy) return;
+        downloadAllButton.disabled = true;
+        for (let index = 0; index < state.results.length; index += 1) { download(index); await new Promise((resolve) => setTimeout(resolve, 200)); }
+        downloadAllButton.disabled = false;
+      }
+
+      function choose() { if (!state.busy) fileInput.click(); }
+      dropZone.addEventListener("click", (event) => { if (event.target !== fileInput) choose(); });
+      dropZone.addEventListener("keydown", (event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); choose(); } });
+      ["dragenter", "dragover"].forEach((name) => dropZone.addEventListener(name, (event) => { event.preventDefault(); if (!state.busy) dropZone.classList.add("dragging"); }));
+      ["dragleave", "drop"].forEach((name) => dropZone.addEventListener(name, (event) => { event.preventDefault(); dropZone.classList.remove("dragging"); }));
+      dropZone.addEventListener("drop", (event) => { if (!state.busy) processFiles(event.dataTransfer.files); });
+      fileInput.addEventListener("change", () => { processFiles(fileInput.files); fileInput.value = ""; });
+      downloadAllButton.addEventListener("click", downloadAll);
+      window.addEventListener("beforeunload", () => state.urls.forEach((url) => URL.revokeObjectURL(url)));
+    })();
+  </script>
+</body>
+</html>
